@@ -27,6 +27,7 @@ declare -a BUILD_PACKAGES=(
     "python3-setuptools"
     "qt${QTVERMIN}base"
     "qt${QTVERMIN}declarative"
+    "qt${QTVERMIN}x11extras"
     "qt${QTVERMIN}xmlpatterns"
     "qt${QTVERMIN}svg"
     "qt${QTVERMIN}tools"
