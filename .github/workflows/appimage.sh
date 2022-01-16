@@ -2,6 +2,7 @@
 
 BRANCH=`echo ${GITHUB_REF##*/}`
 BINARY=decaf-emu
+QTVERMIN=515
 
 mkdir -p AppDir/usr/bin
 cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
@@ -46,6 +47,8 @@ ls -al ./AppDir
 #wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 #chmod a+x appimagetool-x86_64.AppImage
 #./appimagetool-x86_64.AppImage AppDir/ -u "gh-releases-zsync|qurious-pixel|"$BINARY"|continuous|"$BINARY"-x86_64.AppImage.zsync"
+
+/opt/qt${QTVERMIN}/bin/qt${QTVERMIN}-env.sh
 
 curl -sLO https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
 curl -sLO https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage
