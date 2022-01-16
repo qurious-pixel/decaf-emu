@@ -241,8 +241,8 @@ sudo make -C c-ares-${CARESVER} install
 sudo apt-get clean autoclean && sudo apt-get autoremove --yes && sudo rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
 # Setup paths for Qt binaries
-LD_LIBRARY_PATH=/opt/qt${QTVERMIN}/lib:${LD_LIBRARY_PATH}
-PATH=$HOME/.local/bin:/opt/qt${QTVERMIN}/bin:${PATH}
+export LD_LIBRARY_PATH=/opt/qt${QTVERMIN}/lib:${LD_LIBRARY_PATH}
+export PATH=$HOME/.local/bin:/opt/qt${QTVERMIN}/bin:${PATH}
 
 # Need to patch Qt for compatibility with GCC 11
 # See https://codereview.qt-project.org/c/qt/qtbase/+/339417
