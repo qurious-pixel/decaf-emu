@@ -5,9 +5,9 @@ BINARY=decaf-emu
 
 mkdir -p AppDir/usr/bin
 cp build/bin/decaf-qt AppDir/usr/bin/"$BINARY"
-cp -r build/bin/resources AppDir/usr/
+cp -r build/install/share/decaf-emu/resources AppDir/usr/
 cp resources/decaf.ico AppDir/"$BINARY".png
-cp .github/workflows/scripts/"$BINARY".desktop AppDir/"$BINARY".desktop
+cp .github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
 cp .github/workflows/AppRun AppDir/AppRun
 cp .github/workflows/config.toml.app AppDir/usr/resources
