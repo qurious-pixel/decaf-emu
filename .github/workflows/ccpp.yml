@@ -170,15 +170,15 @@ jobs:
         cd build
         cmake --build . --config Release -j 2 --target install
 
-    #- name: Package AppImage
-    #  if: startsWith(matrix.os, 'ubuntu')
-    #  run: |
-    #    chmod +x .github/workflows/appimage.sh
-    #    .github/workflows/appimage.sh
-    #    mv build/install build/install2
-    #    mv artifacts build/install
+    - name: Package AppImage
+      if: startsWith(matrix.os, 'ubuntu')
+      run: |
+        chmod +x .github/workflows/appimage.sh
+        .github/workflows/appimage.sh
+        mv build/install build/install2
+        mv artifacts build/install
         
-    #- uses: actions/upload-artifact@master
-    #  with:
-    #    name: decaf-emu-${{ matrix.os }}
-    #    path: build/install
+    - uses: actions/upload-artifact@master
+      with:
+        name: decaf-emu-${{ matrix.os }}
+        path: build/install
