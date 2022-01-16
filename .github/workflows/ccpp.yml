@@ -41,6 +41,7 @@ jobs:
     - name: Install Dependencies (Ubuntu)
       if: startsWith(matrix.os, 'ubuntu')
       run: |
+          echo $GITHUB_WORKSPACE
           chmod +x .github/workflows/install-script.sh
           .github/workflows/install-script.sh
 
@@ -156,7 +157,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       run: |
         cd build
-        cmake -DDECAF_BUILD_TOOLS=ON -DDECAF_FFMPEG=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_BUILD_TYPE=Release -DQt5_DIR=$QTDIR/lib/cmake/Qt5 -DCMAKE_INSTALL_PREFIX=install ..
+        cmake -GNinja -DCMAKE_C_COMPILER=/usr/lib/ccache/gcc -DCMAKE_CXX_COMPILER=/usr/lib/ccache/g++ -DDECAF_BUILD_TOOLS=ON -DDECAF_FFMPEG=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_BUILD_TYPE=Release -DQt5_DIR=$QTDIR/lib/cmake/Qt5 -DCMAKE_INSTALL_PREFIX=install ..
 
     - name: Configure (Windows)
       if: startsWith(matrix.os, 'windows')
@@ -174,8 +175,8 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       run: |
         cd build/install
-        chmod +x .github/workflows/appimage.sh
-        .github/workflows/appimage.sh
+        chmod +x $GITHUB_WORKSPACE/.github/workflows/appimage.sh
+        $GITHUB_WORKSPACE/.github/workflows/appimage.sh
         cd ..
         mv install install2
         mv install2/artifacts install
