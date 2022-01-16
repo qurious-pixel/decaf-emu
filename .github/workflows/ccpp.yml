@@ -31,7 +31,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key: build-ccache-${{ env.GITHUB_RUN_ID }}
+        key: build-ccache-${{github.run_id}}
         restore-keys: |
           build-ccache
           
@@ -41,7 +41,6 @@ jobs:
     - name: Install Dependencies (Ubuntu)
       if: startsWith(matrix.os, 'ubuntu')
       run: |
-          echo $GITHUB_WORKSPACE
           chmod +x .github/workflows/install-script.sh
           .github/workflows/install-script.sh
 
