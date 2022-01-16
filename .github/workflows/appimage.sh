@@ -4,7 +4,7 @@ BRANCH=`echo ${GITHUB_REF##*/}`
 BINARY=decaf-emu
 
 mkdir -p AppDir/usr/bin
-cp build/bin/decaf-qt AppDir/usr/bin/"$BINARY"
+cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
 cp -r build/install/share/decaf-emu/resources AppDir/usr/
 cp resources/decaf.ico AppDir/"$BINARY".png
 cp .github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
