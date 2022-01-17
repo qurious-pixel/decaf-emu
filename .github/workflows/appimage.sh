@@ -58,13 +58,13 @@ chmod a+x linuxdeploy-x86_64.AppImage
 chmod a+x linuxdeploy-plugin-appimage-x86_64.AppImage
 chmod a+x linuxdeploy-plugin-qt-x86_64.AppImage
 
-linuxdeploy-x86_64.AppImage --appimage-extract
+./linuxdeploy-x86_64.AppImage --appimage-extract
 mv ./squashfs-root/usr/bin/patchelf ./squashfs-root/usr/bin/patchelf.orig
 sudo cp /usr/local/bin/patchelf ./squashfs-root/usr/bin/patchelf
 
 export UPDATE_INFORMATION="gh-releases-zsync|qurious-pixel|$BINARY|continuous|$BINARY-x86_64.AppImage.zsync"
 export OUTPUT="$BINARY-x86_64.AppImage"
-"$GITHUB_WORKSPACE"/linuxdeploy-x86_64.AppImage \
+"$GITHUB_WORKSPACE"/squashfs-root/AppRun \
   --appdir="$GITHUB_WORKSPACE"/AppDir \
   --executable="$GITHUB_WORKSPACE"/AppDir/usr/bin/"$BINARY" \
   --desktop-file="$GITHUB_WORKSPACE"/AppDir/"$BINARY".desktop \
