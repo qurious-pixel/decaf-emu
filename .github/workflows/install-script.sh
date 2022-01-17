@@ -242,7 +242,7 @@ sudo make -C c-ares-${CARESVER} install
 PELFVER=0.12
 #PATCHELF
 cd $CACHEDIR
-if [[ ! -e patchelf-${PELFVER} ]]; then
+if [[ ! -e patchelf-${PELFVER}* ]]; then
 	curl -sSfLO https://github.com/NixOS/patchelf/releases/download/${PELFVER}/patchelf-${PELFVER}.tar.bz2        
 	tar xvf patchelf-${PELFVER}.tar.bz2
 	cd patchelf-${PELFVER}*/ 
