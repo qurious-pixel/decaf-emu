@@ -7,7 +7,7 @@ QTVERMIN=515
 mkdir -p AppDir/usr/bin
 cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
 cp -r build/install/share/decaf-emu/resources AppDir/usr/
-cp resources/decaf.ico AppDir/"$BINARY".png
+cp .github/workflows/"$BINARY".png AppDir/"$BINARY".png
 cp .github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
 cp .github/workflows/AppRun AppDir/AppRun
