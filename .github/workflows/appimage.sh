@@ -69,7 +69,7 @@ export OUTPUT="$BINARY-x86_64.AppImage"
   --executable="$GITHUB_WORKSPACE"/AppDir/usr/bin/"$BINARY" \
   --desktop-file="$GITHUB_WORKSPACE"/AppDir/"$BINARY".desktop \
   --icon-file="$GITHUB_WORKSPACE"/AppDir/"$BINARY".png \
-  --output=appimage
+  --output=appimage \
   --plugin=qt
 
 mkdir artifacts
