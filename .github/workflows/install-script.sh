@@ -238,6 +238,20 @@ if [[ ! -e c-ares-${CARESVER} ]]; then
 fi
 sudo make -C c-ares-${CARESVER} install
 ###############################################
+
+PELFVER=0.12
+#PATCHELF
+cd $CACHEDIR
+if [[ ! -e patchelf-${PELFVER} ]]; then
+	curl -sSfLO https://github.com/NixOS/patchelf/releases/download/${PELFVER}/patchelf-${PELFVER}.tar.bz2        
+	tar xvf patchelf-${PELFVER}.tar.bz2
+	cd patchelf-${PELFVER}*/ 
+	./configure
+	make && cd ../
+	rm patchelf-${PELFVER}.tar.bz2
+fi
+sudo make -C patchelf-${PELFVER}* install
+###############################################
 sudo apt-get clean autoclean && sudo apt-get autoremove --yes && sudo rm -rf /var/lib/apt /var/lib/cache /var/lib/log
 
 # Setup paths for Qt binaries
