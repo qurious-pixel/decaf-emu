@@ -12,7 +12,7 @@ cp .github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
 cp .github/workflows/AppRun AppDir/AppRun
 cp .github/workflows/config.toml.app AppDir/usr/resources
-#curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o AppDir/AppRun.wrapped
+curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o AppDir/AppRun.wrapped
 curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64 -o ./AppDir/runtime
 mkdir -p AppDir/usr/share/applications && cp ./AppDir/"$BINARY".desktop ./AppDir/usr/share/applications
 mkdir -p AppDir/usr/share/icons && cp ./AppDir/"$BINARY".png ./AppDir/usr/share/icons
@@ -28,7 +28,7 @@ mkdir -p AppDir/usr/share/pixmaps && cp ./AppDir/"$BINARY".png ./AppDir/usr/shar
 #cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 AppDir/usr/optional/libstdc++/
 
 chmod a+x ./AppDir/AppRun
-#chmod a+x ./AppDir/AppRun-patched
+chmod a+x ./AppDir/AppRun.wrapped
 chmod a+x ./AppDir/runtime
 chmod a+x ./AppDir/usr/bin/"$BINARY"
 #chmod a+x ./AppDir/update.sh
@@ -51,10 +51,12 @@ ls -al ./AppDir
 export LD_LIBRARY_PATH=/opt/qt${QTVERMIN}/lib:${LD_LIBRARY_PATH}
 export PATH=$HOME/.local/bin:/opt/qt${QTVERMIN}/bin:${PATH}
 
-curl -sLO https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-curl -sLO https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage
+curl -sSLO https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+curl -sSLO https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage
+curl -sSLO https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
 chmod a+x linuxdeploy-x86_64.AppImage
 chmod a+x linuxdeploy-plugin-appimage-x86_64.AppImage
+chmod a+x linuxdeploy-plugin-qt-x86_64.AppImage
 
 export UPDATE_INFORMATION="gh-releases-zsync|qurious-pixel|$BINARY|continuous|$BINARY-x86_64.AppImage.zsync"
 export OUTPUT="$BINARY-x86_64.AppImage"
