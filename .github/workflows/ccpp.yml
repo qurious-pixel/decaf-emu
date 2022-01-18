@@ -13,8 +13,8 @@ jobs:
         include:
           - name: ubuntu-20.04-gcc-9
             os: ubuntu-20.04
-            compiler: gcc
-            version: "9"
+            compiler: clang
+            version: "10"
             mono: 'mono'
           #- name: windows-2019
           #  os: windows-2019
