@@ -205,3 +205,29 @@ jobs:
       with:
         name: decaf-emu-${{ matrix.os }}
         path: build/install
+
+  create-release:
+    needs: [build]
+    runs-on: "ubuntu-20.04"
+    #if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+      
+      - name: Upload
+        shell: bash
+        run: |
+          mkdir artifacts/
+          files=$(find . -name "decaf-emu-*" ! -iname "*.zip")
+          for f in $files; do
+            echo "Compressing $f"
+            (cd $(basename $f) && zip -r ../artifacts/$(basename $f).zip *)
+          done
+          ls -al artifacts/
+          wget -c https://github.com/tcnksm/ghr/releases/download/v0.14.0/ghr_v0.14.0_linux_amd64.tar.gz
+          tar xfv ghr_v0.14.0_linux_amd64.tar.gz
+          ghr_v0.14.0_linux_amd64/ghr -u qurious-pixel -r decaf-emu -recreate -n 'decaf-emu CI builds' -b "Corresponding commit: ${{ github.sha }}" continuous artifacts/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
