@@ -9,12 +9,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [ubuntu-20.04-gcc-10]
+        name: [ubuntu-20.04-gcc-9]
         include:
-          - name: ubuntu-20.04-gcc-10
+          - name: ubuntu-20.04-gcc-9
             os: ubuntu-20.04
             compiler: gcc
-            version: "10"
+            version: "9"
             mono: 'mono'
           #- name: windows-2019
           #  os: windows-2019
@@ -68,7 +68,7 @@ jobs:
         sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-bionic.list http://packages.lunarg.com/vulkan/lunarg-vulkan-bionic.list
         sudo apt-add-repository ppa:cginternals/ppa
         sudo apt-get update
-        sudo apt-get install -y cmake vulkan-sdk python3-setuptools nasm mesa-common-dev libglu1-mesa-dev ninja-build libfmt-dev
+        sudo apt-get install -y cmake vulkan-sdk python3-setuptools nasm mesa-common-dev libglu1-mesa-dev ninja-build
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
           sudo apt-get install -y g++-${{ matrix.version }}
         else
