@@ -9,20 +9,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [
-          ubuntu-20.04-gcc-10,
-          windows-2019,
-        ]
+        name: [ubuntu-20.04-gcc-10]
         include:
           - name: ubuntu-20.04-gcc-10
             os: ubuntu-20.04
             compiler: gcc
             version: "10"
             mono: 'mono'
-          - name: windows-2019
-            os: windows-2019
-            compiler: cl
-            mono: ''
+          #- name: windows-2019
+          #  os: windows-2019
+          #  compiler: cl
+          #  mono: ''
 
     env:
       VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
@@ -71,7 +68,7 @@ jobs:
         fi
         pip3 install wheel
         pip3 install aqtinstall
-        python3 -m aqt install 5.15.0 linux desktop
+        python3 -m aqt install 6.2.0 linux desktop
 
     - name: Load Cached Vulkan SDK (Windows)
       id: cache-vulkan-windows
@@ -130,7 +127,7 @@ jobs:
           echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
           echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
         fi
-        echo "QTDIR=$PWD/build/5.15.0/gcc_64" >> $GITHUB_ENV
+        echo "QTDIR=$PWD/build/6.2.0/gcc_64" >> $GITHUB_ENV
         echo "VULKAN_SDK=$PWD/vulkan" >> $GITHUB_ENV
 
     - name: Setup Environment (Windows)
