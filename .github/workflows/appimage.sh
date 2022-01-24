@@ -4,8 +4,9 @@ BRANCH=`echo ${GITHUB_REF##*/}`
 BINARY=decaf-emu
 #QT_BASE_DIR=${GITHUB_WORKSPACE}/${{ env.Qt6_DIR }}/gcc_64
 #export QTDIR=$QT_BASE_DIR
-#export PATH=$QT_BASE_DIR/bin:$PATH
-#export LD_LIBRARY_PATH=$QT_BASE_DIR/lib:$LD_LIBRARY_PATH
+echo "QTDIR is $QTDIR"
+export PATH=$QTDIR/bin:$PATH
+export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
 
 mkdir -p AppDir/usr/bin
 cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
