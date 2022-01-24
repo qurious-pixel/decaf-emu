@@ -158,11 +158,6 @@ jobs:
     - name: Package AppImage
       if: startsWith(matrix.os, 'ubuntu')
       run: |
-        export CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/$QT6_DIR/gcc_64
-        export Qt6_DIR=${CMAKE_PREFIX_PATH}/lib/cmake/Qt6/
-        sudo mv /usr/bin/qmake /usr/bin/qmake5
-        sudo ln -s ${GITHUB_WORKSPACE}/$(find qt/ -name qmake) /usr/bin
-        echo "Qt version $(qmake -v | grep 'Qt' | awk ' { print $4 } ')"
         chmod +x .github/workflows/appimage.sh
         .github/workflows/appimage.sh
         mv build/install build/install2
