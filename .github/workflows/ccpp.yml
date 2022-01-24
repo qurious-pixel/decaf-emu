@@ -82,8 +82,8 @@ jobs:
         tar xvf patchelf-${PELFVER}.tar.bz2
         cd patchelf-${PELFVER}*/ 
         ./configure
-        make && cd ../
-        sudo make -C patchelf-${PELFVER}* install
+        make && sudo make install
+        cd ../
 
     - name: Load Cached Vulkan SDK (Windows)
       id: cache-vulkan-windows
