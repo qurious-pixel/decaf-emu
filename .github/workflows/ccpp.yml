@@ -9,20 +9,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [
-          ubuntu-20.04-gcc-10,
-          windows-2019,
-        ]
+        name: ubuntu-20.04-gcc-10
         include:
           - name: ubuntu-20.04-gcc-10
             os: ubuntu-20.04
             compiler: gcc
             version: "10"
             mono: 'mono'
-          - name: windows-2019
-            os: windows-2019
-            compiler: cl
-            mono: ''
+          #- name: windows-2019
+          #  os: windows-2019
+          #  compiler: cl
+          #  mono: ''
 
     env:
       VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
@@ -144,7 +141,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       run: |
         cd build
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECAF_BUILD_TOOLS=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_PREFIX_PATH=$QTDIR -DCMAKE_INSTALL_PREFIX=install ..
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECAF_BUILD_TOOLS=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_PREFIX_PATH=$QTDIR -DCMAKE_INSTALL_PREFIX=install/usr ..
 
     - name: Configure (Windows)
       if: startsWith(matrix.os, 'windows')
