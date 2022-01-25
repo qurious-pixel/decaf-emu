@@ -9,12 +9,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [ubuntu-20.04-gcc-10]
+        name: [ubuntu-18.04-gcc-9]
         include:
-          - name: ubuntu-20.04-gcc-10
-            os: ubuntu-20.04
+          - name: ubuntu-18.04-gcc-9
+            os: ubuntu-18.04
             compiler: gcc
-            version: "10"
+            version: "9"
             mono: 'mono'
           #- name: windows-2019
           #  os: windows-2019
