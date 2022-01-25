@@ -9,12 +9,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [ubuntu-20.04-gcc-10]
+        name: [ubuntu-20.04-gcc-9]
         include:
-          - name: ubuntu-20.04-gcc-10
+          - name: ubuntu-20.04-gcc-9
             os: ubuntu-20.04
             compiler: gcc
-            version: "10"
+            version: "9"
             mono: 'mono'
           #- name: windows-2019
           #  os: windows-2019
@@ -141,7 +141,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       run: |
         cd build
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECAF_BUILD_TOOLS=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_PREFIX_PATH=$QTDIR -DCMAKE_INSTALL_PREFIX=install/usr ..
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DDECAF_BUILD_TOOLS=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_PREFIX_PATH=$QTDIR -DCMAKE_INSTALL_PREFIX=/usr ..
 
     - name: Configure (Windows)
       if: startsWith(matrix.os, 'windows')
@@ -153,7 +153,7 @@ jobs:
     - name: Build
       run: |
         cd build
-        cmake --build . --config Release -j 2 --target install
+        cmake --build . --config Release -j 2 --target install --prefix install
 
     - uses: actions/upload-artifact@master
       with:
