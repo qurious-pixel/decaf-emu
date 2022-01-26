@@ -24,4 +24,4 @@ elif	[[ ! -e $HOME/.config/decaf ]]; then
 	fi
 fi
 
-exec "$this_dir"/AppRun.wrapped "$@"
+cd "$this_dir"/usr/ && bin/decaf-emu
