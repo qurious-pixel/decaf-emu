@@ -13,6 +13,7 @@ jobs:
       VCPKG_BUILD_TYPE: 'release'
       VCPKG_ROOT: '${{github.workspace}}/libraries/vcpkg'
       os: windows-2019
+      msvc: msvc2019_64
       compiler: cl
       vulkan-version: 1.2.182.0
       qt-version: 5.15.0
@@ -74,8 +75,8 @@ jobs:
       id: cache-qt-windows
       uses: actions/cache@v1
       with:
-        path: C:/Qt/${{ env.qt-version }}/msvc2019_64
-        key: ${{ runner.os }}-qt-${{ env.qt-version }}-msvc2019_64
+        path: C:/Qt/${{ env.qt-version }}/${{ env.msvc }}
+        key: ${{ runner.os }}-qt-${{ env.qt-version }}-${{ env.msvc }}
 
     - name: Install Qt from web (Windows)
       if: steps.cache-qt-windows.outputs.cache-hit != 'true'
@@ -84,14 +85,14 @@ jobs:
         mkdir "C:\\Qt"
         cd "C:\\Qt"
         pip install aqtinstall
-        cmd /c 'python 2>&1' -m aqt install ${{ env.qt-version }} windows desktop win64_msvc2019_64
+        cmd /c 'python 2>&1' -m aqt install ${{ env.qt-version }} windows desktop win64_${{ env.msvc }}
         dir
 
     - name: Setup Environment (Windows)
       shell: powershell
       run: |
         echo "VULKAN_SDK=C:\\VulkanSDK\\${{ env.vulkan-version }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-        echo "QTDIR=C:\\Qt\\${{ env.qt-version }}\\msvc2019_64" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "QTDIR=C:\\Qt\\${{ env.qt-version }}\\${{ env.msvc }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
   
     - name: Configure (Windows)
       shell: cmd
