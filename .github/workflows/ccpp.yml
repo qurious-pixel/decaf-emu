@@ -218,7 +218,7 @@ jobs:
         shell: bash
         run: |
           mkdir artifacts/
-          files=$(find . -name "decaf-emu-*" ! -iname "*.zip")
+          files=$(find . -name "decaf-emu-*" ! -iname "*.zip" -type d)
           for f in $files; do
             echo "Compressing $f"
             (cd $(basename $f) && zip -r ../artifacts/$(basename $f).zip *)
