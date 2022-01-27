@@ -82,68 +82,7 @@ jobs:
         name: decaf-emu-${{ env.os }}
         path: build/install
 
-  appimage-build:
-    runs-on: ubuntu-20.04
-    needs: [ubuntu-build]
-    strategy:
-      fail-fast: false
-
-    env:
-      VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
-      VCPKG_BUILD_TYPE: 'release'
-      VCPKG_ROOT: '${{github.workspace}}/libraries/vcpkg'
-      os: ubuntu-20.04
-      compiler: gcc
-      version: 10
-      mono: mono
-      vulkan-version: 1.2.182.0
-      qt-version: 5.15.0
-      
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: false
-        
-    - name: Install Dependencies (Appimage)
-      run: |
-        wget -qO - http://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
-        sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-bionic.list http://packages.lunarg.com/vulkan/lunarg-vulkan-bionic.list
-        sudo apt-add-repository ppa:cginternals/ppa
-        sudo apt-get update
-        sudo apt-get install -y cmake ccache vulkan-sdk python3-setuptools mesa-common-dev libglu1-mesa-dev ninja-build libcurl4-openssl-dev libsdl2-dev libssl-dev zlib1g-dev libuv1-dev libc-ares-dev libavcodec-dev libavfilter-dev libavutil-dev libswscale-dev
-        if [ "${{ env.compiler }}" = "gcc" ]; then
-          sudo apt-get install -y g++-${{ env.version }}
-        else
-          sudo apt-get install -y clang-${{ env.version }}
-        fi
-        pip3 install wheel
-        pip3 install aqtinstall
-        python3 -m aqt install ${{ env.qt-version }} linux desktop
-        PELFVER=0.12
-        curl -sSfLO https://github.com/NixOS/patchelf/releases/download/${PELFVER}/patchelf-${PELFVER}.tar.bz2        
-        tar xvf patchelf-${PELFVER}.tar.bz2
-        cd patchelf-${PELFVER}*/ 
-        ./configure
-        make && sudo make install
-        cd ../
-
-    - name: Setup Environment (Appimage)
-      run: |
-        if [ "${{ env.compiler }}" = "gcc" ]; then
-          echo "CC=gcc-${{ env.version }}" >> $GITHUB_ENV
-          echo "CXX=g++-${{ env.version }}" >> $GITHUB_ENV
-        else
-          echo "CC=clang-${{ env.version }}" >> $GITHUB_ENV
-          echo "CXX=clang++-${{ env.version }}" >> $GITHUB_ENV
-        fi
-        echo "QTDIR=$PWD/build/${{ env.qt-version }}/gcc_64" >> $GITHUB_ENV
-        echo "VULKAN_SDK=$PWD/vulkan" >> $GITHUB_ENV    
-
-    - name: Download Artifacts
-      uses: actions/download-artifact@v2
-      with:
-          name: "decaf-emu-${{ env.os }}"
-    - name: find files
+    - name: build appimage
       run: |
         chmod +x .github/workflows/scripts/appimage.sh
         .github/workflows/scripts/appimage.sh
@@ -154,7 +93,7 @@ jobs:
         path: artifacts
           
   create-release:
-    needs: [ubuntu-build, appimage-build]
+    needs: [ubuntu-build]
     runs-on: "ubuntu-20.04"
     if: github.ref == 'refs/heads/master'
     steps:
