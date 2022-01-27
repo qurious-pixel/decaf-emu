@@ -12,6 +12,7 @@ jobs:
       VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
       VCPKG_BUILD_TYPE: 'release'
       VCPKG_ROOT: '${{github.workspace}}/libraries/vcpkg'
+      os: windows-2019
       compiler: cl
       vulkan-version: 1.2.182.0
       qt-version: 5.15.0
@@ -105,7 +106,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: decaf-emu-${{ runner.os }}
+        name: decaf-emu-${{ env.os }}
         path: build/install
 
   ubuntu-build:
@@ -117,6 +118,7 @@ jobs:
       VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
       VCPKG_BUILD_TYPE: 'release'
       VCPKG_ROOT: '${{github.workspace}}/libraries/vcpkg'
+      os: ubuntu-20.04
       compiler: gcc
       version: 10
       mono: mono
@@ -176,7 +178,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: decaf-emu-${{ runner.os }}
+        name: decaf-emu-${{ env.os }}
         path: build/install
 
   appimage-build:
@@ -184,15 +186,22 @@ jobs:
     needs: [ubuntu-build]
     strategy:
       fail-fast: false
+
+    env:
+      os: ubuntu-20.04
       
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          name: "linux-x64-appimage-qt"
-        
+          name: "decaf-emu-${{ env.os }}"
+      - name: find files
+        run: |
+          echo "working dir $PWD"
+          ls -al .
+          
   create-release:
-    needs: [windows-build, ubuntu-build]
+    needs: [windows-build, ubuntu-build, appimage-build]
     runs-on: "ubuntu-20.04"
     if: github.ref == 'refs/heads/master'
     steps:
