@@ -31,7 +31,7 @@ jobs:
       shell: 'bash'
       run: >
         cd build &&
-        ${{ matrix.mono }} `../libraries/vcpkg/vcpkg fetch nuget | tail -n 1`
+        ${{ env.mono }} `../libraries/vcpkg/vcpkg fetch nuget | tail -n 1`
         sources add
         -source "https://nuget.pkg.github.com/decaf-emu/index.json"
         -storepasswordincleartext
@@ -43,7 +43,6 @@ jobs:
 
     - name: Load Cached Vulkan SDK (Windows)
       id: cache-vulkan-windows
-      if: startsWith(matrix.os, 'windows')
       uses: actions/cache@v1
       with:
         path: C:/VulkanSDK/${{ env.vulkan-version }}
@@ -140,10 +139,10 @@ jobs:
         sudo apt-add-repository ppa:cginternals/ppa
         sudo apt-get update
         sudo apt-get install -y cmake vulkan-sdk python3-setuptools mesa-common-dev libglu1-mesa-dev ninja-build libcurl4-openssl-dev libsdl2-dev libssl-dev zlib1g-dev libuv1-dev libc-ares-dev libavcodec-dev libavfilter-dev libavutil-dev libswscale-dev
-        if [ "${{ matrix.compiler }}" = "gcc" ]; then
-          sudo apt-get install -y g++-${{ matrix.version }}
+        if [ "${{ env.compiler }}" = "gcc" ]; then
+          sudo apt-get install -y g++-${{ env.version }}
         else
-          sudo apt-get install -y clang-${{ matrix.version }}
+          sudo apt-get install -y clang-${{ env.version }}
         fi
         pip3 install wheel
         pip3 install aqtinstall
@@ -152,12 +151,12 @@ jobs:
 
     - name: Setup Environment (Ubuntu)
       run: |
-        if [ "${{ matrix.compiler }}" = "gcc" ]; then
-          echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
-          echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
+        if [ "${{ env.compiler }}" = "gcc" ]; then
+          echo "CC=gcc-${{ env.version }}" >> $GITHUB_ENV
+          echo "CXX=g++-${{ env.version }}" >> $GITHUB_ENV
         else
-          echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
-          echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
+          echo "CC=clang-${{ env.version }}" >> $GITHUB_ENV
+          echo "CXX=clang++-${{ env.version }}" >> $GITHUB_ENV
         fi
         echo "QTDIR=$PWD/build/${{ env.qt-version }}/gcc_64" >> $GITHUB_ENV
         echo "VULKAN_SDK=$PWD/vulkan" >> $GITHUB_ENV
