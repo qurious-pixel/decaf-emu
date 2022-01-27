@@ -129,7 +129,9 @@ jobs:
         submodules: true
 
     - name: Initialise
-      run: mkdir build      
+      run: |
+        mkdir build 
+        echo ${{runner.name}}
 
     - name: Install Dependencies (Ubuntu)
       run: |
@@ -177,6 +179,18 @@ jobs:
         name: decaf-emu-${{ runner.os }}
         path: build/install
 
+  appimage-build:
+    runs-on: ubuntu-20.04
+    needs: [ubuntu-build]
+    strategy:
+      fail-fast: false
+      
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: "linux-x64-appimage-qt"
+        
   create-release:
     needs: [windows-build, ubuntu-build]
     runs-on: "ubuntu-20.04"
