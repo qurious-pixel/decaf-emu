@@ -2,8 +2,6 @@
 
 BRANCH=`echo ${GITHUB_REF##*/}`
 BINARY=decaf-emu
-#QT_BASE_DIR=${GITHUB_WORKSPACE}/${{ env.Qt6_DIR }}/gcc_64
-#export QTDIR=$QT_BASE_DIR
 echo "QTDIR is $QTDIR"
 export PATH=$QTDIR/bin:$PATH
 export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
@@ -11,11 +9,11 @@ export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
 mkdir -p AppDir/usr/bin
 cp bin/decaf-qt AppDir/usr/bin/"$BINARY"
 cp -r share/decaf-emu/resources AppDir/usr/
-cp .github/workflows/"$BINARY".png AppDir/"$BINARY".png
-cp .github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
+cp .github/workflows/scripts/"$BINARY".png AppDir/"$BINARY".png
+cp .github/workflows/scripts/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
-cp .github/workflows/AppRun AppDir/AppRun.wrapped
-cp .github/workflows/config.toml.app AppDir/usr/resources
+cp .github/workflows/scripts/AppRun AppDir/AppRun.wrapped
+cp .github/workflows/scripts/config.toml.app AppDir/usr/resources
 #curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o AppDir/AppRun.wrapped
 curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64 -o ./AppDir/runtime
 mkdir -p AppDir/usr/share/applications && cp ./AppDir/"$BINARY".desktop ./AppDir/usr/share/applications
