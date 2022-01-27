@@ -7,8 +7,8 @@ export PATH=$QTDIR/bin:$PATH
 export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
 
 mkdir -p AppDir/usr/bin
-cp bin/decaf-qt AppDir/usr/bin/"$BINARY"
-cp -r share/decaf-emu/resources AppDir/usr/
+cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
+cp -r build/install/share/decaf-emu/resources AppDir/usr/
 cp .github/workflows/scripts/"$BINARY".png AppDir/"$BINARY".png
 cp .github/workflows/scripts/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
