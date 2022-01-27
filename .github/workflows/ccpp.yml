@@ -217,7 +217,11 @@ jobs:
       - name: Upload
         shell: bash
         run: |
-          mkdir artifacts/
+          if [[ -e decaf-emu-appimage ]]; then
+            mv decaf-emu-appimage artifacts
+          else
+            mkdir artifacts
+          fi
           files=$(find . -name "decaf-emu-*" ! -iname "*.zip" -type d)
           for f in $files; do
             echo "Compressing $f"
