@@ -54,6 +54,13 @@ jobs:
         pip3 install wheel
         pip3 install aqtinstall
         python3 -m aqt install ${{ env.qt-version }} linux desktop
+        PELFVER=0.12
+        curl -sSfLO https://github.com/NixOS/patchelf/releases/download/${PELFVER}/patchelf-${PELFVER}.tar.bz2        
+        tar xvf patchelf-${PELFVER}.tar.bz2
+        cd patchelf-${PELFVER}*/ 
+        ./configure
+        make && sudo make install
+        cd ../
 
     - name: Setup Environment (Ubuntu)
       run: |
