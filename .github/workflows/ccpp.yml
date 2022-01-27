@@ -100,6 +100,10 @@ jobs:
       qt-version: 5.15.0
       
     steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: false
+        
     - name: Install Dependencies (Appimage)
       run: |
         wget -qO - http://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
