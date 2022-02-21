@@ -41,6 +41,7 @@ chmod a+x ./AppDir/usr/bin/"$BINARY"
 mkdir -p AppDir/usr/lib/
 #mv update/* ./AppDir/usr/lib/
 sudo cp /usr/lib/x86_64-linux-gnu/libgio-2.0.so.0 ./AppDir/usr/lib/
+sudo cp /lib/x86_64-linux-gnu/libselinux.so.1 ./AppDir/usr/lib/
 
 echo $name > ./AppDir/version.txt
 
