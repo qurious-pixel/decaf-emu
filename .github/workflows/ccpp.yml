@@ -38,7 +38,7 @@ jobs:
 
     - name: Install Dependencies 
       run: |
-          chmod +x .github/workflows/install-script.sh
+          chmod +x appimage/.github/workflows/install-script.sh
           appimage/.github/workflows/install-script.sh
 
     - name: Configure (Ubuntu)
