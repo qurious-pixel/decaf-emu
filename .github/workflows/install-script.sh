@@ -4,8 +4,8 @@ set -ex
 
 QTVER=5.15.2
 QTVERMIN=515
-GCCVER=9
-UBUNTU_VER=bionic
+GCCVER=10
+UBUNTU_VER=focal
 
 LLD_BINARY=lld-${LLVMVER}
 GCC_BINARY=gcc-${GCCVER}
@@ -110,7 +110,7 @@ fi
 sudo make -C libzip-${LIBZIPVER}/build install 
 ###############################################
 
-SDL2VER=2.0.18
+SDL2VER=2.0.22
 #SDL2
 cd $CACHEDIR
 if [[ ! -e SDL2-${SDL2VER} ]]; then
@@ -124,7 +124,7 @@ fi
 sudo make -C SDL2-${SDL2VER} install
 ###############################################
 
-VULKANVER=1.2.203
+VULKANVER=1.3.220
 #VULKANHEADERS
 cd $CACHEDIR
 if [[ ! -e Vulkan-Headers-${VULKANVER} ]]; then
@@ -239,7 +239,7 @@ fi
 sudo make -C c-ares-${CARESVER} install
 ###############################################
 
-PELFVER=0.12
+PELFVER=0.14
 #PATCHELF
 cd $CACHEDIR
 if [[ ! -e patchelf-${PELFVER}* ]]; then
