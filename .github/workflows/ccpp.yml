@@ -1,6 +1,8 @@
 name: C/C++ CI
 
-on: [push, pull_request]
+on: 
+  push:
+    branch: main
 
 jobs:
   build:
