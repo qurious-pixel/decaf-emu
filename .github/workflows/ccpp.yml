@@ -9,6 +9,8 @@ jobs:
   build:
     name: ubuntu-20.04-gcc-10
     runs-on: ubuntu-20.04
+    env:
+      yaqti: 6.3.1
     strategy:
       fail-fast: false
 
@@ -33,32 +35,43 @@ jobs:
         restore-keys: |
           build-ccache
           
-    - name: Initialise
-      run: mkdir build
+    - name: Install Qt
+      run: |
+          curl -sLO https://files.pythonhosted.org/packages/47/42/351389ca36c7adfc5f4e92d086cdb2bdbde13f1b89ee882f4a1cab2183ac/yaqti-2021.7.29-py3-none-any.whl
+          python3 -m pip install yaqti-2021.7.29-py3-none-any.whl
+          pyver=$(python3 --version | awk '{print $2}')
+          curl -sL https://raw.githubusercontent.com/qurious-pixel/yaqti/fetch/yaqti/fetchers.py -o $HOME/.local/lib/python${pyver%.*}/site-packages/yaqti/fetchers.py
+          python -m yaqti install --os linux --platform desktop --version ${{ env.yaqti }} --modules gcc_64 --set-envs --install-deps
+          sudo ln -s ${GITHUB_WORKSPACE}/$(find qt/ -name qmake) /usr/bin
+          qmake --version
+        
+    - uses: actions/setup-go@v3
+      with:
+        go-version: '>=1.17.0'
 
     - name: Install Dependencies 
       run: |
-          chmod +x appimage/.github/workflows/install-script.sh
-          appimage/.github/workflows/install-script.sh
+        chmod +x appimage/.github/workflows/install-script.sh
+        appimage/.github/workflows/install-script.sh
 
-    - name: Configure (Ubuntu)
-      run: |
-        cd build
-        cmake -GNinja -DCMAKE_C_COMPILER=/usr/lib/ccache/gcc -DCMAKE_CXX_COMPILER=/usr/lib/ccache/g++ -DDECAF_BUILD_TOOLS=ON -DDECAF_FFMPEG=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_BUILD_TYPE=Release -DQt5_DIR=$QTDIR/lib/cmake/Qt5 -DCMAKE_INSTALL_PREFIX=install ..
+    #- name: Configure (Ubuntu)
+    #  run: |
+    #    mkdir build && cd build
+    #    cmake -GNinja -DCMAKE_C_COMPILER=/usr/lib/ccache/gcc -DCMAKE_CXX_COMPILER=/usr/lib/ccache/g++ -DDECAF_BUILD_TOOLS=ON -DDECAF_FFMPEG=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_BUILD_TYPE=Release -DQt5_DIR=$QTDIR/lib/cmake/Qt5 -DCMAKE_INSTALL_PREFIX=install ..
 
-    - name: Build
-      run: |
-        cd build
-        cmake --build . --config Release -j 2 --target install
+    #- name: Build
+    #  run: |
+    #    cd build
+    #    cmake --build . --config Release -j 2 --target install
 
-    - name: Package AppImage
-      run: |
-        chmod +x appimage/.github/workflows/appimage.sh
-        appimage/.github/workflows/appimage.sh
-        mv build/install build/install2
-        mv artifacts build/install
+    #- name: Package AppImage
+    #  run: |
+    #    chmod +x appimage/.github/workflows/appimage.sh
+    #    appimage/.github/workflows/appimage.sh
+    #    mv build/install build/install2
+    #    mv artifacts build/install
         
-    - uses: actions/upload-artifact@master
-      with:
-        name: decaf-emu-ubuntu
-        path: build/install
+    #- uses: actions/upload-artifact@master
+    #  with:
+    #    name: decaf-emu-ubuntu
+    #    path: build/install
