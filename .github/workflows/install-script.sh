@@ -2,8 +2,6 @@
 
 set -ex
 
-QTVER=5.15.2
-QTVERMIN=515
 GCCVER=10
 UBUNTU_VER=focal
 
@@ -25,14 +23,6 @@ declare -a BUILD_PACKAGES=(
     "libpulse-dev"
     "pulseaudio"
     "python3-setuptools"
-    "qt${QTVERMIN}base"
-    "qt${QTVERMIN}declarative"
-    "qt${QTVERMIN}x11extras"
-    "qt${QTVERMIN}xmlpatterns"
-    "qt${QTVERMIN}svg"
-    "qt${QTVERMIN}tools"
-    "qt${QTVERMIN}wayland"
-    "qt${QTVERMIN}webengine"
     "libxi-dev"
     "libavcodec-dev"
     "libavutil-dev"
@@ -60,8 +50,6 @@ for i in "${BUILD_PACKAGES[@]}"; do
 done
 
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-sudo add-apt-repository -y ppa:beineri/opt-qt-${QTVER}-${UBUNTU_VER}
-#sudo add-apt-repository -y ppa:jonathonf/ffmpeg-4
 sudo apt-get update
 sudo apt-get -y install ${BUILD_PACKAGE_STR}
 pip3 install wheel
@@ -70,12 +58,6 @@ conan --version
 
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 10
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCCVER} 10
-#ls -al /opt/qt${QTVERMIN}/
-ls -al /opt/qt${QTVERMIN}/bin/
-#find . -name "qt${QTVERMIN}-env.sh" -exec sh qt${QTVERMIN}-env.sh {} \;
-#. /opt/qt${QTVERMIN}/bin/qt${QTVERMIN}-env.sh
-/opt/qt${QTVERMIN}/bin/qt${QTVERMIN}-env.sh
-sudo rm -rf /opt/qt${QTVERMIN}/examples /opt/qt${QTVERMIN}/doc
 gcc --version
 g++ --version
 
@@ -253,13 +235,3 @@ fi
 sudo make -C patchelf-${PELFVER}* install
 ###############################################
 sudo apt-get clean autoclean && sudo apt-get autoremove --yes && sudo rm -rf /var/lib/apt /var/lib/cache /var/lib/log
-
-# Setup paths for Qt binaries
-export LD_LIBRARY_PATH=/opt/qt${QTVERMIN}/lib:${LD_LIBRARY_PATH}
-export PATH=$HOME/.local/bin:/opt/qt${QTVERMIN}/bin:${PATH}
-
-# Need to patch Qt for compatibility with GCC 11
-# See https://codereview.qt-project.org/c/qt/qtbase/+/339417
-
-#	sudo sed -i 's/ThreadEngineStarter<void>(ThreadEngine<void> \*_threadEngine)/ThreadEngineStarter(ThreadEngine<void> \*_threadEngine)/' \
-#	/opt/qt515/include/QtConcurrent/qtconcurrentthreadengine.h
