@@ -20,6 +20,7 @@ jobs:
       with:
         repository: decaf-emu/decaf-emu
         ref: master
+        submodules: recursive
 
     - name: Checkout AppImage Repo
       uses: actions/checkout@v3
