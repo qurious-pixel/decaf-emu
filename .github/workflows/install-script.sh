@@ -13,6 +13,11 @@ GXX_BINARY=g++-${GCCVER}
 declare -a BUILD_PACKAGES=(
     "$GCC_BINARY" 
     "$GXX_BINARY"
+    "libxcb-keysyms1"
+    "libxcb-randr0"
+    "libxcb-render-util0"
+    "libxcb-icccm4"
+    "libxcb-image0-dev"
     "libboost-all-dev"
     "liblz4-dev"
     "libcurl4-openssl-dev"
