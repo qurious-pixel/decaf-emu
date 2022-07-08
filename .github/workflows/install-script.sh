@@ -106,7 +106,7 @@ fi
 sudo make -C SDL2-${SDL2VER} install
 ###############################################
 
-VULKANVER=1.3.220
+VULKANVER=1.3.211
 #VULKANHEADERS
 cd $CACHEDIR
 if [[ ! -e Vulkan-Headers-${VULKANVER} ]]; then
