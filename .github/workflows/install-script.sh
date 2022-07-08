@@ -61,7 +61,7 @@ done
 
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo add-apt-repository -y ppa:beineri/opt-qt-${QTVER}-${UBUNTU_VER}
-sudo add-apt-repository -y ppa:jonathonf/ffmpeg-4
+#sudo add-apt-repository -y ppa:jonathonf/ffmpeg-4
 sudo apt-get update
 sudo apt-get -y install ${BUILD_PACKAGE_STR}
 pip3 install wheel
