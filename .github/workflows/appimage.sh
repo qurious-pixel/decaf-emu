@@ -2,7 +2,6 @@
 
 BRANCH=`echo ${GITHUB_REF##*/}`
 BINARY=decaf-emu
-QTVERMIN=515
 
 mkdir -p AppDir/usr/bin
 cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
@@ -10,8 +9,8 @@ cp -r build/install/share/decaf-emu/resources AppDir/usr/
 cp appimage/.github/workflows/"$BINARY".png AppDir/"$BINARY".png
 cp appimage/.github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
-cp .github/workflows/AppRun AppDir/AppRun
-cp .github/workflows/config.toml.app AppDir/usr/resources
+cp appimage/.github/workflows/AppRun AppDir/AppRun
+cp appimage/.github/workflows/config.toml.app AppDir/usr/resources
 curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o AppDir/AppRun.wrapped
 curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64 -o ./AppDir/runtime
 mkdir -p AppDir/usr/share/applications && cp ./AppDir/"$BINARY".desktop ./AppDir/usr/share/applications
@@ -38,10 +37,9 @@ chmod a+x ./AppDir/usr/bin/"$BINARY"
 #mv update/AppImageUpdate ./AppDir/usr/bin/
 mkdir -p AppDir/usr/lib/
 #mv update/* ./AppDir/usr/lib/
-sudo cp /usr/lib/x86_64-linux-gnu/libgio-2.0.so.0 ./AppDir/usr/lib/
+#sudo cp /usr/lib/x86_64-linux-gnu/libgio-2.0.so.0 ./AppDir/usr/lib/
 
 echo $name > ./AppDir/version.txt
-
 
 ls -al ./AppDir
 
@@ -49,8 +47,8 @@ ls -al ./AppDir
 #chmod a+x appimagetool-x86_64.AppImage
 #./appimagetool-x86_64.AppImage AppDir/ -u "gh-releases-zsync|qurious-pixel|"$BINARY"|continuous|"$BINARY"-x86_64.AppImage.zsync"
 
-export LD_LIBRARY_PATH=/opt/qt${QTVERMIN}/lib:${LD_LIBRARY_PATH}
-export PATH=$HOME/.local/bin:/opt/qt${QTVERMIN}/bin:${PATH}
+export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/qt/${yaqti}/gcc_64/lib/:${LD_LIBRARY_PATH}
+export PATH=$HOME/.local/bin:$GITHUB_WORKSPACE/qt/${yaqti}/gcc_64/bin:${PATH}
 
 curl -sSLO https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
 curl -sSLO https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage
