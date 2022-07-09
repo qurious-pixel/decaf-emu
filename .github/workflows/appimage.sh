@@ -4,14 +4,15 @@ BRANCH=`echo ${GITHUB_REF##*/}`
 BINARY=decaf-emu
 
 mkdir -p AppDir/usr/bin
+mkdir -p AppDir/apprun-hooks
 cp build/install/bin/decaf-qt AppDir/usr/bin/"$BINARY"
 cp -r build/install/share/decaf-emu/resources AppDir/usr/
 cp appimage/.github/workflows/"$BINARY".png AppDir/"$BINARY".png
 cp appimage/.github/workflows/"$BINARY".desktop AppDir/"$BINARY".desktop
 #cp AppDir/update.sh
-cp appimage/.github/workflows/AppRun AppDir/AppRun.wrapped
+cp appimage/.github/workflows/AppRun AppDir/apprun-hooks/decaf.sh
 cp appimage/.github/workflows/config.toml.app AppDir/usr/resources
-#curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o AppDir/AppRun.wrapped
+curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -o AppDir/AppRun.wrapped
 curl -sL https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64 -o ./AppDir/runtime
 mkdir -p AppDir/usr/share/applications && cp ./AppDir/"$BINARY".desktop ./AppDir/usr/share/applications
 mkdir -p AppDir/usr/share/icons && cp ./AppDir/"$BINARY".png ./AppDir/usr/share/icons
