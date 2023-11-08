@@ -16,9 +16,6 @@
     "zlib"
   ]
   "overrides": [
-  { 
-      "name": "libuv", 
-      "version": "1.4.5"
-  }
+    { "name": "libuv", "version": "1.4.5" }
   ]
 }
