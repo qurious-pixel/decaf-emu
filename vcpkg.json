@@ -12,6 +12,6 @@
     "libuv",
     "openssl",
     "sdl2",
-    "zlib"
+    "zlib2"
   ]
 }
