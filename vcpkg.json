@@ -14,7 +14,7 @@
     "sdl2",
     {
       "name": "zlib",
-      "version>=": "1.2.13"
+      "version": "1.2.13"
     }
   ]
 }
