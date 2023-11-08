@@ -89,21 +89,21 @@ jobs:
         echo "VULKAN_SDK=C:\\VulkanSDK\\${{ env.VULKAN_VERSION }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         echo "QTDIR=C:\\Qt\\${{ env.QT_VERSION }}\\${{ env.MSVC }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
-    - name: Configure
-      shell: cmd
-      run: |
-        cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE=../libraries/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-release -DVCPKG_HOST_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DDECAF_BUILD_TOOLS=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_PREFIX_PATH=%QTDIR% -DCMAKE_INSTALL_PREFIX=install ..
+    #- name: Configure
+    #  shell: cmd
+    #  run: |
+    #    cd build
+    #    cmake -DCMAKE_TOOLCHAIN_FILE=../libraries/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-release -DVCPKG_HOST_TRIPLET=x64-windows-release -DCMAKE_BUILD_TYPE=Release -DDECAF_BUILD_TOOLS=ON -DDECAF_VULKAN=ON -DDECAF_QT=ON -DCMAKE_PREFIX_PATH=%QTDIR% -DCMAKE_INSTALL_PREFIX=install ..
 
-    - name: Build
-      run: |
-        cd build
-        cmake --build . --config Release -j 2 --target install
+    #- name: Build
+    #  run: |
+    #    cd build
+    #    cmake --build . --config Release -j 2 --target install
 
-    - uses: actions/upload-artifact@master
-      with:
-        name: decaf-emu-${{ env.OS }}
-        path: build/install
+    #- uses: actions/upload-artifact@master
+    #  with:
+    #    name: decaf-emu-${{ env.OS }}
+    #    path: build/install
 
   ubuntu-build:
     runs-on: ubuntu-20.04
