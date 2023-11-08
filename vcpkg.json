@@ -14,8 +14,4 @@
     "openssl",
     "sdl2",
     "zlib"
-  ],
-  "overrides": [
-    { "name": "libuv", "version": "1.45.0" }
-  ]
 }
