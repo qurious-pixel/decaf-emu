@@ -12,6 +12,9 @@
     "libuv",
     "openssl",
     "sdl2",
-    "zlib2"
+    {
+      "name": "zlib",
+      "version>=": "1.2.13"
+    }
   ]
 }
