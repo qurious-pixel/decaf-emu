@@ -1,7 +1,7 @@
 {
   "name": "decaf-emu",
   "version-string": "0.1.0",
-  "builtin-baseline": "b81bc3a83fdbdffe80325eeabb2ec735a1f3c29d",
+  "builtin-baseline": "06c79a9afa6f99f02f44d20df9e0848b2a56bf1b",
   "dependencies": [
     {
       "name": "ffmpeg",
@@ -13,9 +13,6 @@
     "libuv",
     "openssl",
     "sdl2",
-    {
-      "name": "zlib",
-      "version>=": "1.2.13"
-    }
+    "zlib"
   ]
 }
