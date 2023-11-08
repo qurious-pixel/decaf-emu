@@ -90,7 +90,7 @@ if(VCPKG_TARGET_TRIPLET)
 
     set(CARES_LIBRARY c-ares::cares)
     set(CURL_LIBRARY CURL::libcurl)
-    set(LIBUV_LIBRARY libuv::libuv)
+    set(LIBUV_LIBRARY libuv::uv)
     set(OPENSSL_LIBRARY OpenSSL::SSL)
     set(SDL2_LIBRARY SDL2::SDL2)
     set(SDL2_MAIN_LIBRARY SDL2::SDL2main)
